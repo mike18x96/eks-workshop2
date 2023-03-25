@@ -112,6 +112,11 @@ Get more details about the requests and limits:
 kubectl get pod/nginx-pod2 -o jsonpath={.spec.containers[].resources}
 map[limits:map[memory:200Mi cpu:2] requests:map[cpu:1 memory:100Mi]]
 ```
+Delete the pod
+```
+kubectl delete pod nginx-pod2
+```
+
 NGINX container requires fairly low memory and CPU. And so these request and limit numbers would work well, and the pod is started correctly. Now, let’s try to start a WildFly pod using similar numbers. The configuration file for the same is shown:
 
 pod-resources1.yaml
@@ -128,7 +133,7 @@ spec:
     image: jboss/wildfly:11.0.0.Final
     resources:
       limits:
-        memory: "200Mi"
+        memory: "120Mi"
         cpu: 2
       requests:
         memory: "100Mi"
@@ -136,7 +141,7 @@ spec:
     ports:
     - containerPort: 8080
 ```
-The max amount of memory allocated for the WildFly container in this pod is restricted to 200MB. Let’s create this Pod:
+The max amount of memory allocated for the WildFly container in this pod is restricted to 120MB. Let’s create this Pod:
 
 ```
 kubectl apply -f pod-resources1.yaml
@@ -151,13 +156,7 @@ wildfly-pod   0/1       ContainerCreating   0          5s
 wildfly-pod   1/1       Running   0         26s
 wildfly-pod   0/1       OOMKilled   0         29s
 wildfly-pod   1/1       Running   1         31s
-wildfly-pod   0/1       OOMKilled   1         34s
-wildfly-pod   0/1       CrashLoopBackOff   1         45s
-wildfly-pod   1/1       Running   2         46s
-wildfly-pod   0/1       OOMKilled   2         49s
-wildfly-pod   0/1       CrashLoopBackOff   2         1m
-wildfly-pod   1/1       Running   3         1m
-wildfly-pod   0/1       OOMKilled   3         1m
+
 ```
 OOMKilled shows that the container was terminated because it ran out of memory.
 
