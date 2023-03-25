@@ -11,6 +11,8 @@ $ sudo installer -pkg AWSCLIV2.pkg -target /
 
 Configure: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
 
+AWS console/IAM/Users/You user name/ Security credentials/Create Access Key and save it.
+
 ```
 aws configure
 AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
