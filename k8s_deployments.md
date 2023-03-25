@@ -33,10 +33,9 @@ This deployment will created instances of NGINX image.
 Run the following command to create Deployment:
 
 ```
-kubectl create -f deployment.yaml --record
+kubectl create -f deployment.yaml
 ```
 
-The --record flag will track changes made through each revision.
 
 To monitor deployment rollout status:
 
