@@ -358,7 +358,7 @@ This should be BestEffort and filed as kubernetes#55278.
 Delete a Pod
 Get all the Pods that are running:
 
-$ kubectl get pods
+kubectl get pods
 NAME                    READY     STATUS    RESTARTS   AGE
 nginx-pod               1/1       Running   0          6m
 nginx-pod-burstable     1/1       Running   0          9m
