@@ -8,7 +8,7 @@ The following is an example DaemonSet that runs a Prometheus container. Let’s 
 
 daemonset.yaml
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: prometheus-daemonset
