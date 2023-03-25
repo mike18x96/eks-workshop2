@@ -48,23 +48,23 @@ Pod can continue to operate on the node if Containers in the Pod does not exceed
 
 Memory and CPU request/limit can be specified using the following:
 
-Type	Field
+
 Memory request
-
+```
 spec.containers[].resources.requests.memory
-
+```
 Memory limit
-
+```
 spec.containers[].resources.limits.memory
-
+```
 CPU request
-
+```
 spec.containers[].resources.requests.cpu
-
+```
 CPU limit
-
+```
 spec.containers[].resources.limits.cpu
-
+```
 Memory resources are requested in bytes. You can specify them in integer or decimals with one of the suffixes E, P, T, G, M, K. It can also be expressed with power-of-two equivalents Ei, Pi, Ti, Gi, Mi, Ki.
 
 CPU can be requested in cpu units. 1 cpu unit is equivalent 1 AWS vCPU. It can also be requested in fractional units, such as 0.5 or in millicpu such as 500m.
@@ -189,18 +189,18 @@ Get more details about the resources allocated to the Pod:
 kubectl get pod/wildfly-pod -o jsonpath={.spec.containers[].resources}
 map[limits:map[cpu:2 memory:300Mi] requests:map[cpu:1 memory:100Mi]]
 ```
-Quality of service
+## Quality of service
 Kubernetes opportunistically scavenges the difference between request and limit if they are not used by the Containers. This allows Kubernetes to oversubscribe nodes, which increases utilization, while at the same time maintaining resource guarantees for the containers that need guarantees.
 
 Kubernetes assigns one of the QoS classes to the Pod:
 
-Guaranteed
+**Guaranteed**
 
-Burstable
+**Burstable**
 
-BestEffort
+**BestEffort**
 
-QoS class is used by Kubernetes for scheduling and evicting Pods.
+**QoS **class is used by Kubernetes for scheduling and evicting Pods.
 
 When every Container in a Pod is given a memory and CPU limit, and optionally non-zero request, and they exactly match, then a Pod is scheduled with Guaranteed QoS. This is the highest priority.
 
@@ -213,7 +213,7 @@ Pods that need to stay up can request Guaranteed QoS. Pods with less stringent r
 Guaranteed
 Here is an example of Pod with Guaranteed QoS:
 
-```
+
 pod-guaranteed.yaml
 ```
 apiVersion: v1
