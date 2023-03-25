@@ -11,7 +11,7 @@ kind: Deployment # kubernetes object type
 metadata:
   name: nginx-deployment # deployment name
 spec:
-  replicas: 3 # number of replicas
+  replicas: 1 # number of replicas
   selector:
     matchLabels:
       app: nginx
@@ -28,7 +28,7 @@ spec:
         - containerPort: 80
         - containerPort: 443
 ```
-This deployment will create 3 instances of NGINX image.
+This deployment will created instances of NGINX image.
 
 Run the following command to create Deployment:
 
@@ -68,7 +68,7 @@ kubectl get pods
 Number of replicas for a Deployment can be scaled using the following command:
 
 ```
-kubectl scale --replicas=5 deployment/nginx-deployment
+kubectl scale --replicas=3 deployment/nginx-deployment
 ```
 deployment "nginx-deployment" scaled
 Verify the deployment:
