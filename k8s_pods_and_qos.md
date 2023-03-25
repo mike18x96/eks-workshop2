@@ -351,22 +351,5 @@ Check the QoS:
 ```
 kubectl get pod/nginx-pod -o jsonpath={.status.qosClass}
 ```
-Burstable
-This should be BestEffort and filed as kubernetes#55278.
 
-Delete a Pod
-Get all the Pods that are running:
-
-kubectl get pods
-NAME                    READY     STATUS    RESTARTS   AGE
-nginx-pod               1/1       Running   0          6m
-nginx-pod-burstable     1/1       Running   0          9m
-nginx-pod-guaranteed    1/1       Running   0          23m
-nginx-pod-guaranteed2   1/1       Running   0          12m
-nginx-pod2              1/1       Running   0          6m
-wildfly-pod             1/1       Running   0          6m
-Delete the Pods as shown below:
-
-```
-kubectl delete $(kubectl get pods -o=name)
-```
+Delete the Pods
