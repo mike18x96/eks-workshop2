@@ -15,7 +15,7 @@ https://github.com/kubernetes-sigs/aws-load-balancer-controller
 ### Add OIDC provider to the cluster
 Replace **dev-cluster** with you EKS cluster
 ```
-eksctl utils associate-iam-oidc-provider --region=us-west-2 --cluster=dev-cluster
+eksctl utils associate-iam-oidc-provider --region=us-west-2 --cluster=dev-cluster --approve
 ```
 ### Create IAM policy
 
