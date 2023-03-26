@@ -100,3 +100,73 @@ spec:
   ```
   kubectl get deployment -n kube-system aws-load-balancer-controller
   ```
+  
+  # INGRESS with AWS LOAD BALANCER CONTROLLER
+  Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+
+Details: https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+   ## Example manifest stub
+   Now you goal is to create you own Docker image, build and push to ECS, edit this stub and test you own application!
+   Replace ports to match you application, ecr image and repo and names
+   ```
+   ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: webapp
+  name: deployment-webapp
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-webapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app-webapp
+    spec:
+      containers:
+      - image: <account_id>.dkr.ecr.us-west-2.amazonaws.com/<repo1>:latest
+        imagePullPolicy: Always
+        name: app-webapp
+        ports:
+        - containerPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: webapp
+  name: service-webapp
+spec:
+  ports:
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: app-webapp
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: webapp
+  name: ingress-webapp
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: service-webapp
+              servicePort: 8001
+   ```
